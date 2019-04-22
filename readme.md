@@ -28,6 +28,15 @@ The plugin should show up in the "Plugins" section of the output as "ServerlessN
 ## Usage
 In your main serverless.yml file you should define the common properties used by all your functions.
 
+> configure
+```
+custom:
+  nestedYml:
+    filename: // Filename to search | optional, string - default *serverless.yml
+    paths:    // Path to search | optional, string | array - default ['src']
+    exclude:  // Path to exclude from search | optional, string | array - default []
+```
+
 > project structure
 
 ```
