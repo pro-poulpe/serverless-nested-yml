@@ -1,0 +1,24 @@
+{
+  "name": "serverless-nested-yml",
+  "version": "1.0.0",
+  "description": "A serverless plugin to merge nested servless.yml files",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/index.js"
+  },
+  "keywords": [],
+  "author": "<goopil zac@goopil.org>",
+  "license": "MIT",
+  "dependencies": {
+    "fast-glob": "^2.2.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
