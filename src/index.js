@@ -131,7 +131,12 @@ class ServerlessNestedYml {
           })
       })
 
-    return BbPromise.resolve()
+    return this.serverless.variables
+      .populateService(this.serverless.pluginManager.cliOptions)
+      .then(() => {
+        this.serverless.service.validate()
+        return BbPromise.resolve()
+      })
   }
 
   /**
