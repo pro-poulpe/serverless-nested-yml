@@ -1,4 +1,7 @@
-[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+[![NPM](https://img.shields.io/npm/v/serverless-nested-yml.svg)](https://www.npmjs.com/package/serverless-nested-yml)
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
 
 # Serverless Nested Yml
 
