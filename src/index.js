@@ -1,7 +1,7 @@
 'use strict'
 
 const BbPromise = require('bluebird')
-const {mergeWith, pick, isArray} = require('lodash')
+const { mergeWith, pick, isArray } = require('lodash')
 const YAML = require('js-yaml')
 const fg = require('fast-glob')
 
@@ -18,7 +18,6 @@ class ServerlessNestedYml {
   constructor (serverless) {
     this.serverless = serverless
     this.config = {}
-    this.done = false
 
     this
       ._setConfig()
@@ -53,44 +52,22 @@ class ServerlessNestedYml {
   /**
    * Initialize commands and hooks
    *
-   * @returns {ServerlessNestedYml}
+   * @returns {Bluebird<void>}
    * @private
    */
   _init () {
     this.commands = {
-      'child-merge': {
-        usage: 'Merge nested serverless.yml',
+      'nested-yml': {
+        usage: 'Show merged serverless.yml config',
         lifecycleEvents: ['show']
       }
     }
 
     this.hooks = {
-      'child-merge:show': this.showConfig.bind(this)
+      'nested-yml:show': this.showConfig.bind(this)
     }
 
-    const hookToRegister = [
-      'webpack:validate:validate',
-      'offline:start'
-    ]
-
-    hookToRegister.forEach(name => {
-      this.hooks[`before:${name}`] = this._mergeChildConfigFiles.bind(this)
-    })
-
-    return this
-  }
-
-  /**
-   * Wrap the config merge to be called only once
-   *
-   * @private
-   */
-  _mergeChildConfigFiles () {
-    if (this.done === true) return
-
-    this._mergeConfig()
-
-    this.done = true
+    return this._mergeConfig()
   }
 
   /**
@@ -116,7 +93,7 @@ class ServerlessNestedYml {
 
     const files = fg.sync([...globs, ...excludes])
 
-    this._showIncludedFiles({files, excludes})
+    this._showIncludedFiles({ files, excludes })
 
     files
       .map(this.serverless.utils.readFileSync)
@@ -175,7 +152,7 @@ class ServerlessNestedYml {
    * @param excludes
    * @private
    */
-  _showIncludedFiles ({files, excludes}) {
+  _showIncludedFiles ({ files, excludes }) {
     console.log()
     this.serverless.cli.log(`${this.constructor.name} - found ${files.length} files`)
 
