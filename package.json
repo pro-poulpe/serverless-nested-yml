@@ -9,7 +9,7 @@
     "lint": "eslint src/index.js"
   },
   "keywords": [],
-  "author": "<goopil zac@goopil.org>",
+  "author": "<goopil me@goopil.org>",
   "license": "MIT",
   "dependencies": {
     "fast-glob": "^2.2.6"

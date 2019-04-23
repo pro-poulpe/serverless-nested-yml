@@ -58,13 +58,13 @@ class ServerlessNestedYml {
   _init () {
     this.commands = {
       'nested-yml': {
-        usage: 'Show merged serverless.yml config',
-        lifecycleEvents: ['show']
+        usage: 'Show merged serverless.yml',
+        lifecycleEvents: ['print']
       }
     }
 
     this.hooks = {
-      'nested-yml:show': this.showConfig.bind(this)
+      'nested-yml:print': this.showConfig.bind(this)
     }
 
     return this._mergeConfig()
@@ -108,41 +108,7 @@ class ServerlessNestedYml {
           })
       })
 
-    return this._reInitServerless()
-  }
-
-  /**
-   * from serverless run methods
-   *
-   * @returns {PromiseLike<T | never> | Promise<T | never>|*}
-   * @private
-   */
-  _reInitServerless () {
-    this.serverless.utils.logStat(this.serverless).catch(() => BbPromise.resolve())
-
-    if (this.serverless.cli.displayHelp(this.serverless.processedInput)) {
-      return BbPromise.resolve()
-    }
-    this.serverless.cli.suppressLogIfPrintCommand(this.serverless.processedInput)
-
-    // make sure the command exists before doing anything else
-    this.serverless.pluginManager.validateCommand(this.serverless.processedInput.commands)
-
-    // populate variables after --help, otherwise help may fail to print
-    // (https://github.com/serverless/serverless/issues/2041)
-    return this.serverless.variables.populateService(this.serverless.pluginManager.cliOptions)
-      .then(() => {
-        // merge arrays after variables have been populated
-        // (https://github.com/serverless/serverless/issues/3511)
-        this.serverless.service.mergeArrays()
-
-        // populate function names after variables are loaded in case functions were externalized
-        // (https://github.com/serverless/serverless/issues/2997)
-        this.serverless.service.setFunctionNames(this.serverless.processedInput.options)
-
-        // validate the service configuration, now that variables are loaded
-        this.serverless.service.validate()
-      })
+    return BbPromise.resolve()
   }
 
   /**
@@ -181,6 +147,9 @@ class ServerlessNestedYml {
   showConfig () {
     return this._mergeConfig()
       .then(() => {
+        return this.serverless.variables.populateService(this.serverless.pluginManager.cliOptions)
+      })
+      .then(() => {
         const config = pick(this.serverless.service, [
           'custom',
           'functions',
@@ -190,7 +159,8 @@ class ServerlessNestedYml {
           'service'
         ])
 
-        this.serverless.cli.log('Effective serverless.yml:\n' + YAML.dump(config))
+        this.serverless.cli.log('Merged serverless.yml:\n')
+        console.log(YAML.dump(config))
 
         return BbPromise.resolve()
       })
