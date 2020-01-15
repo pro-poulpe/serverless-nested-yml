@@ -35,6 +35,7 @@ custom:
     filename: // Filename to search | optional, string - default *serverless.yml
     paths:    // Path to search | optional, string | array - default ['src']
     exclude:  // Path to exclude from search | optional, string | array - default []
+    monorepo:  // add global path to each handler and force root webpack config file | optional, boolean - default false
 ```
 
 > project structure
