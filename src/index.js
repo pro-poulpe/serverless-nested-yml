@@ -90,7 +90,8 @@ class ServerlessNestedYml {
         }
       })
       .forEach(({ content, path }) => {
-        if (this.config.monorepo === true) {
+
+        if (this.config.monorepo === true && content.functions) {
           const modulePath = dirname(path)
           Object.keys(content.functions).forEach(fnName => {
             const formatted = join(modulePath, content.functions[fnName].handler)
