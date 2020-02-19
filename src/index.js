@@ -90,10 +90,15 @@ class ServerlessNestedYml {
         }
       })
       .forEach(({ content, path }) => {
-
         if (this.config.monorepo === true && content.functions) {
           const modulePath = dirname(path)
           Object.keys(content.functions).forEach(fnName => {
+             const name = content.functions[fnName].name
+
+             if (name) {
+              const regex = /(\$\{)(.*)(\})/g
+              content.functions[fnName].name = (content.service + '-' + name.replace(regex , '')).replace(/-+/g, '-')
+            }
             const formatted = join(modulePath, content.functions[fnName].handler)
             content.functions[fnName].handler = formatted
           })
