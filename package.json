@@ -1,6 +1,6 @@
 {
   "name": "serverless-nested-yml",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A serverless plugin to merge nested servless.yml files",
   "main": "src/index.js",
   "scripts": {
